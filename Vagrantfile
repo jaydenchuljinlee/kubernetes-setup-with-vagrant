@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   N = 3 # max number of worker nodes
-  Ver = '1.18.4' # Kubernetes Version to install
+  Ver = '1.21.0' # Kubernetes Version to install
 
   #=============#
   # Master Node #
@@ -22,9 +22,11 @@ Vagrant.configure("2") do |config|
     config.vm.define "m-k8s" do |cfg|
       cfg.vm.box = "centos/7"
       cfg.vm.provider "virtualbox" do |vb|
-        vb.name = "m-k8s(github_SysNet4Admin)"
+        vb.name = "m-k8s"
         vb.cpus = 2
         vb.memory = 3072
+        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat,tcp,,53,,53"]
+        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat2,udp,,53,,53"]
       end
       cfg.vm.host_name = "m-k8s"
       cfg.vm.network "private_network", ip: "192.168.1.10"
@@ -38,9 +40,11 @@ Vagrant.configure("2") do |config|
     config.vm.define "w1-k8s" do |cfg|
       cfg.vm.box = "centos/7"
       cfg.vm.provider "virtualbox" do |vb|
-        vb.name = "w1-k8s(github_SysNet4Admin)"
-        vb.cpus = 1
+        vb.name = "w1-k8s"
+        vb.cpus = 2
         vb.memory = 2560
+        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat,tcp,,53,,53"]
+        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat2,udp,,53,,53"]
       end
       cfg.vm.host_name = "w1-k8s"
       cfg.vm.network "private_network", ip: "192.168.1.101"
@@ -54,9 +58,11 @@ Vagrant.configure("2") do |config|
     config.vm.define "w2-k8s" do |cfg|
       cfg.vm.box = "centos/7"
       cfg.vm.provider "virtualbox" do |vb|
-        vb.name = "w2-k8s(github_SysNet4Admin)"
+        vb.name = "w2-k8s"
         vb.cpus = 1
         vb.memory = 2560
+        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat,tcp,,53,,53"]
+        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat2,udp,,53,,53"]
       end
       cfg.vm.host_name = "w2-k8s"
       cfg.vm.network "private_network", ip: "192.168.1.102"
@@ -70,9 +76,11 @@ Vagrant.configure("2") do |config|
     config.vm.define "w3-k8s" do |cfg|
       cfg.vm.box = "centos/7"
       cfg.vm.provider "virtualbox" do |vb|
-        vb.name = "w3-k8s(github_SysNet4Admin)"
+        vb.name = "w3-k8s"
         vb.cpus = 1
         vb.memory = 2560
+        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat,tcp,,53,,53"]
+        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat2,udp,,53,,53"]
       end
       cfg.vm.host_name = "w3-k8s"
       cfg.vm.network "private_network", ip: "192.168.1.103"

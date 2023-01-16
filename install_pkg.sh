@@ -12,6 +12,11 @@ yum install docker -y && systemctl enable --now docker
 yum install kubectl-$1 kubelet-$1 kubeadm-$1 -y
 systemctl enable --now kubelet
 
+# config for master node only -> all nodes
+mkdir -p $HOME/.kube
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+chown $(id -u):$(id -g) $HOME/.kube/config
+
 # git clone _Book_k8sInfra.git 
 if [ $2 = 'Main' ]; then
   git clone https://github.com/sysnet4admin/_Book_k8sInfra.git
