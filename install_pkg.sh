@@ -5,17 +5,19 @@ yum install epel-release -y
 yum install vim-enhanced -y
 yum install git -y
 
-# install docker 
-yum install docker -y && systemctl enable --now docker
+# install docker
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum install docker-ce docker-ce-cli containerd.io -y 
+
+yum install systemctl
+
+systemctl start docker
+
+systemctl enable docker
 
 # install kubernetes cluster 
 yum install kubectl-$1 kubelet-$1 kubeadm-$1 -y
 systemctl enable --now kubelet
-
-# config for master node only -> all nodes
-mkdir -p $HOME/.kube
-cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-chown $(id -u):$(id -g) $HOME/.kube/config
 
 # git clone _Book_k8sInfra.git 
 if [ $2 = 'Main' ]; then
@@ -23,3 +25,5 @@ if [ $2 = 'Main' ]; then
   mv /home/vagrant/_Book_k8sInfra $HOME
   find $HOME/_Book_k8sInfra/ -regex ".*\.\(sh\)" -exec chmod 700 {} \;
 fi
+
+# vi /etc/ssh/sshd_config -> #PasswordAuthentication yes 주석 풀고, PasswordAuthentication no 주석처리

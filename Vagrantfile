@@ -25,8 +25,9 @@ Vagrant.configure("2") do |config|
         vb.name = "m-k8s"
         vb.cpus = 2
         vb.memory = 3072
-        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat,tcp,,53,,53"]
-        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat2,udp,,53,,53"]
+        vb.customize ["modifyvm", :id, "--groups", "/k8s-SgMST-1.13.1(github_SysNet4Admin)"]
+        #vb.customize ["modifyvm", :id, "--natpf1", "dnsnat,tcp,,53,,53"]
+        #vb.customize ["modifyvm", :id, "--natpf1", "dnsnat2,udp,,53,,53"]
       end
       cfg.vm.host_name = "m-k8s"
       cfg.vm.network "private_network", ip: "192.168.1.10"
@@ -43,8 +44,9 @@ Vagrant.configure("2") do |config|
         vb.name = "w1-k8s"
         vb.cpus = 2
         vb.memory = 2560
-        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat,tcp,,53,,53"]
-        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat2,udp,,53,,53"]
+        vb.customize ["modifyvm", :id, "--groups", "/k8s-SgMST-1.13.1(github_SysNet4Admin)"]
+        #vb.customize ["modifyvm", :id, "--natpf1", "dnsnat,tcp,,53,,53"]
+        #vb.customize ["modifyvm", :id, "--natpf1", "dnsnat2,udp,,53,,53"]
       end
       cfg.vm.host_name = "w1-k8s"
       cfg.vm.network "private_network", ip: "192.168.1.101"
@@ -52,17 +54,18 @@ Vagrant.configure("2") do |config|
       cfg.vm.synced_folder "../data", "/vagrant", disabled: true
       cfg.vm.provision "shell", path: "config.sh", args: N
       cfg.vm.provision "shell", path: "install_pkg.sh", args: Ver
-      cfg.vm.provision "shell", path: "work_nodes.sh"
+      #cfg.vm.provision "shell", path: "work_nodes.sh"
     end
 
     config.vm.define "w2-k8s" do |cfg|
       cfg.vm.box = "centos/7"
       cfg.vm.provider "virtualbox" do |vb|
         vb.name = "w2-k8s"
-        vb.cpus = 1
+        vb.cpus = 2
         vb.memory = 2560
-        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat,tcp,,53,,53"]
-        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat2,udp,,53,,53"]
+        vb.customize ["modifyvm", :id, "--groups", "/k8s-SgMST-1.13.1(github_SysNet4Admin)"]
+        #vb.customize ["modifyvm", :id, "--natpf1", "dnsnat,tcp,,53,,53"]
+        #vb.customize ["modifyvm", :id, "--natpf1", "dnsnat2,udp,,53,,53"]
       end
       cfg.vm.host_name = "w2-k8s"
       cfg.vm.network "private_network", ip: "192.168.1.102"
@@ -70,17 +73,18 @@ Vagrant.configure("2") do |config|
       cfg.vm.synced_folder "../data", "/vagrant", disabled: true
       cfg.vm.provision "shell", path: "config.sh", args: N
       cfg.vm.provision "shell", path: "install_pkg.sh", args: Ver
-      cfg.vm.provision "shell", path: "work_nodes.sh"
+      #cfg.vm.provision "shell", path: "work_nodes.sh"
     end
 
     config.vm.define "w3-k8s" do |cfg|
       cfg.vm.box = "centos/7"
       cfg.vm.provider "virtualbox" do |vb|
         vb.name = "w3-k8s"
-        vb.cpus = 1
+        vb.cpus = 2
         vb.memory = 2560
-        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat,tcp,,53,,53"]
-        vb.customize ["modifyvm", :id, "--natpf1", "dnsnat2,udp,,53,,53"]
+        vb.customize ["modifyvm", :id, "--groups", "/k8s-SgMST-1.13.1(github_SysNet4Admin)"]
+        #vb.customize ["modifyvm", :id, "--natpf1", "dnsnat,tcp,,53,,53"]
+        #vb.customize ["modifyvm", :id, "--natpf1", "dnsnat2,udp,,53,,53"]
       end
       cfg.vm.host_name = "w3-k8s"
       cfg.vm.network "private_network", ip: "192.168.1.103"
@@ -88,6 +92,6 @@ Vagrant.configure("2") do |config|
       cfg.vm.synced_folder "../data", "/vagrant", disabled: true
       cfg.vm.provision "shell", path: "config.sh", args: N
       cfg.vm.provision "shell", path: "install_pkg.sh", args: Ver
-      cfg.vm.provision "shell", path: "work_nodes.sh"
+      #cfg.vm.provision "shell", path: "work_nodes.sh"
     end
 end
